@@ -2435,10 +2435,14 @@ class _MindtPyAlgorithm(object):
             if config.mip_solver in {
                 'gurobi',
                 'appsi_gurobi',
-                'appsi_highs',
             } or config.mip_regularization_solver in {'gurobi', 'appsi_gurobi'}:
                 raise ValueError(
                     "GUROBI can not provide duals for mixed-integer problems."
+                )
+            if config.mip_solver == 'appsi_highs' or \
+                config.mip_regularization_solver == 'appsi_highs':
+                raise ValueError(
+                    "HiGHS can not provide duals for mixed-integer problems."
                 )
 
     ################################################################################################################################
