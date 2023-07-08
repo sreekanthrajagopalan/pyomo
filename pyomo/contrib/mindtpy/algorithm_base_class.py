@@ -2416,7 +2416,7 @@ class _MindtPyAlgorithm(object):
                 )
         if config.solution_pool:
             if config.mip_solver not in {'cplex_persistent', 'gurobi_persistent'}:
-                if config.mip_solver in {'appsi_cplex', 'appsi_gurobi'}:
+                if config.mip_solver in {'appsi_cplex', 'appsi_gurobi', 'appsi_highs'}:
                     config.logger.info("Solution pool does not support APPSI solver.")
                 config.mip_solver = 'cplex_persistent'
         if config.calculate_dual_at_solution:
@@ -2438,6 +2438,11 @@ class _MindtPyAlgorithm(object):
             } or config.mip_regularization_solver in {'gurobi', 'appsi_gurobi'}:
                 raise ValueError(
                     "GUROBI can not provide duals for mixed-integer problems."
+                )
+            if config.mip_solver == 'appsi_highs' or \
+                config.mip_regularization_solver == 'appsi_highs':
+                raise ValueError(
+                    "HiGHS can not provide duals for mixed-integer problems."
                 )
 
     ################################################################################################################################
