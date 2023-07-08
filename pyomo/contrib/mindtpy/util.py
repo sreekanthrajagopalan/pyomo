@@ -569,6 +569,9 @@ def set_solver_options(opt, timing, config, solver_type, regularization=False):
     elif solver_name == 'glpk':
         opt.options['tmlim'] = remaining
         opt.options['mipgap'] = config.mip_solver_mipgap
+    elif solver_name == 'appsi_highs':
+        opt.options['time_limit'] = remaining
+        opt.options['mip_rel_gap'] = config.mip_solver_mipgap
     elif solver_name == 'baron':
         opt.options['MaxTime'] = remaining
         opt.options['AbsConFeasTol'] = config.zero_tolerance
