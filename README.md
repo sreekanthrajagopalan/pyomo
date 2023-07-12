@@ -8,6 +8,9 @@
 
 [![a COIN-OR project](https://www.coin-or.org/GitHub/coin-or-badge.png)](https://www.coin-or.org)
 
+## Introduction
+This fork of the official Pyomo adds a minimal support for HiGHS MIP solver within MindtPy via [appsi_highs](https://pyomo.readthedocs.io/en/stable/library_reference/appsi/appsi.solvers.highs.html).
+
 ## Pyomo Overview
 
 Pyomo is a Python-based open-source software package that supports a
