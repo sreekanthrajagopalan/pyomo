@@ -1857,6 +1857,27 @@ class _MindtPyAlgorithm(object):
 
     # The following functions deal with handling the solution we get from the above MIP solver function
 
+    def handle_nonlinear_var_values(self, main_mip, config):
+        """This function updates values of variables occuring in non-linear expressions by
+        bringing them back into their domain.
+
+        Parameters
+        ----------
+        main_mip : Pyomo model
+            The MIP main problem.
+        config : ConfigBlock
+            The specific configurations for MindtPy.
+        """
+        for constr in main_mip.MindtPy_utils.nonlinear_constraint_list:
+            constr_vars = list(EXPR.identify_variables(constr.body))
+            for var in constr_vars:
+                if var.lower is not None and var.value is not None:
+                    if var.value < var.lower:
+                        var.value = var.lower
+                if var.upper is not None and var.value is not None:
+                    if var.value > var.upper:
+                        var.value = var.upper
+
     def handle_main_optimal(self, main_mip, config, update_bound=True):
         """This function copies the results from 'solve_main' to the working model and updates
         the upper/lower bound. This function is called after an optimal solution is found for

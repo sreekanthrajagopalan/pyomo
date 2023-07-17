@@ -59,6 +59,7 @@ class MindtPy_ECP_Solver(_MindtPyAlgorithm):
             main_mip, main_mip_results = self.solve_main(config)
             if main_mip_results is not None:
                 if not config.single_tree:
+                    self.handle_nonlinear_var_values(main_mip, config)
                     if main_mip_results.solver.termination_condition is tc.optimal:
                         self.handle_main_optimal(main_mip, config)
                     elif main_mip_results.solver.termination_condition is tc.infeasible:
